@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pactera.customercenter.mapper.StaffMapper">
+
+    <select id="findStaffInfo" resultType="com.pactera.customercenter.domain.Staff">
+           select cid,name,age,sex ,telno,headPortrait,pushTuken,channal,refereeID
+               from sys_staff
+               where  refereeID =#{cid,jdbcType=VARCHAR}
+    </select>
+    <!--注册账号-->
+    <select id="findStaffByTelNo" resultType="com.pactera.customercenter.domain.Staff">
+           select cid,name,age,sex ,telno,pass,headPortrait,pushTuken,channal,refereeID
+               from sys_staff
+               where  telno =#{telno,jdbcType=VARCHAR}
+    </select>
+    <!--推荐人id-->
+    <select id="findStaffByRefereeID" resultType="com.pactera.customercenter.domain.Staff">
+           select cid,name,age,sex ,telno,pass,headPortrait,pushTuken,channal,pass,refereeID
+               from sys_staff
+               where  refereeID =#{refereeID,jdbcType=VARCHAR}
+    </select>
+    <!--注册-->
+    <insert id="saveStaffInfo" parameterType="com.pactera.customercenter.domain.Staff">
+      insert into sys_staff (cid,telno,pass,refereeID)
+        values (#{cid,jdbcType=VARCHAR}, #{telno,jdbcType=VARCHAR},#{pass,jdbcType=VARCHAR},#{refereeID,jdbcType=INTEGER} )
+    </insert>
+    <!--修改密码-->
+    <update id="updateStaffPass" parameterType="com.pactera.customercenter.domain.Staff">
+      update sys_staff  set pass = #{pass,jdbcType=VARCHAR}
+         where cid = #{cid,jdbcType=VARCHAR}
+    </update>
+
+    <!--修改头像-->
+    <update id="updateStaffHead" parameterType="com.pactera.customercenter.domain.Staff">
+      update sys_staff  set headPortrait = #{headPortrait,jdbcType=VARCHAR}
+         where cid = #{cid,jdbcType=VARCHAR}
+    </update>
+
+    <select id="findStaffByCId" resultType="com.pactera.customercenter.domain.Staff">
+           select cid,name,age,sex ,telno,headPortrait,pushTuken,channal,refereeID
+               from sys_staff
+               where  cid =#{cid,jdbcType=VARCHAR}
+    </select>
+
+    <update id="updateStaff" parameterType="com.pactera.customercenter.domain.Staff">
+      update sys_staff  set name = #{name,jdbcType=VARCHAR},sex= #{sex,jdbcType=VARCHAR}
+         where cid = #{cid,jdbcType=VARCHAR}
+    </update>
+
+    <insert id="addStaffInfo" parameterType="com.pactera.customercenter.domain.Staff">
+      insert into sys_staff (cid,name,age)
+        values (#{id,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},#{age,jdbcType=INTEGER} )
+    </insert>
+    <delete id="delStaffInfo" parameterType="java.lang.String">
+       delete from sys_staff where id = #{cid,jdbcType=VARCHAR}
+    </delete>
+
+</mapper>
